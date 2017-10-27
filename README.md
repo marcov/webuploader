@@ -15,5 +15,6 @@ Hence I figured out I could just code a web server that handles file uploads and
 - `npm install`
 
 ## Usage
-Run the application with: `node ./bin/www`
+Run the application with: `node ./bin/www`.
+
 Alternatively, use nodemon to write code and automatically have it ready to test it: `DEBUG=webuploader:* nodemon`
