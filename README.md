@@ -1,4 +1,4 @@
-# webuploader
+# Webuploader
 
 A node http server that handles file upload and download through directory listing.
 
@@ -8,3 +8,9 @@ Every time I take a shot on the iPhone and I need to transfer it right away on m
 - no availability of samba/ftp clients on iOS that allows upload.
 
 Hence I figured out I could just code a web server that handles file uploads and download and writing it in Node was the obvious choice, despite my newbie knowledge of it.
+
+## Usage
+- Clone the code locally.
+- `cd webuploader`
+- `npm install`
+- `DEBUG=webuploader:* nodemon`
