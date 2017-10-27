@@ -9,8 +9,11 @@ Every time I take a shot on the iPhone and I need to transfer it right away on m
 
 Hence I figured out I could just code a web server that handles file uploads and download and writing it in Node was the obvious choice, despite my newbie knowledge of it.
 
-## Usage
+## Setup
 - Clone the code locally.
 - `cd webuploader`
 - `npm install`
-- `DEBUG=webuploader:* nodemon`
+
+## Usage
+Run the application with: `node ./bin/www`
+Alternatively, use nodemon to write code and automatically have it ready to test it: `DEBUG=webuploader:* nodemon`
