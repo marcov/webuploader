@@ -1,8 +1,8 @@
 var express = require('express');
 var router  = express.Router();
 var multer  = require("multer");
-var fs      = require('fs');
-
+var fs      = require('fs-extra');
+var config  = require('../config.js');
 
 function renderHomePage(err, renderData) {
   "use strict";
@@ -13,8 +13,11 @@ function renderHomePage(err, renderData) {
     return;
   }
 
+  var dirList = fs.readdirSync(config.uploadRoot);
+ 
   res.render('index',
-             {title : "Node Web Uploader"});
+             {title : "Node Web Uploader",
+              dirList : dirList});
 }
 
 
@@ -31,7 +34,7 @@ router.post('/uploadFiles', (req, res, next) => {
   var folder = "";
   var nFiles = 0;
 
-  var tmpDest = './uploads/' + Date.now();
+  var tmpDest = config.uploadRoot + "/" + Date.now();
 
   var storage = multer.diskStorage({
     destination: tmpDest,
@@ -54,7 +57,7 @@ router.post('/uploadFiles', (req, res, next) => {
     } else if (req.body.destDir !== undefined && req.body.destDir !== "") {
 
       try {
-        finalDest = "./uploads/" + req.body.destDir;
+        finalDest = config.uploadRoot + "/" + req.body.destDir;
         fs.renameSync(tmpDest, finalDest);
       } catch(e) {
 
@@ -76,5 +79,35 @@ router.post('/uploadFiles', (req, res, next) => {
   });
 });
 
+
+/* POST */
+router.post('/deleteDir', (req, res, next) => { 
+  
+  var foldersList = [];
+  
+  foldersList = foldersList.concat(req.body.folderName);
+ 
+  console.log(foldersList);
+  
+  if (foldersList === undefined ||
+      foldersList.length === 0) {
+      res.send("No folders selected for deletion");
+  } else {
+    foldersList.forEach( (d, i, l) => {
+      res.write("<html><head></head><body>");
+      res.write("Removing dir " + d + "...");
+      try {
+        fs.removeSync(config.uploadRoot + "/" + d); 
+        res.write("OK<br>");
+      } catch (e) {
+        res.write(e + "<br>");
+      }
+    });
+  
+    res.write("<a href='/'>Go back</a>")
+    res.write("</body></html>");
+    res.end();
+  }
+});
 
 module.exports = router;

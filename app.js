@@ -8,8 +8,14 @@ var serveIndex = require('serve-index');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var fs      = require('fs');
+var config  = require('./config.js');
 
+console.log(config.uploadRoot);
 
+if (!fs.existsSync(config.uploadRoot)) {
+  fs.mkdirSync(config.uploadRoot);
+}
 
 var app = express();
 
@@ -30,13 +36,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/uploads', express.static('./uploads'), 
-        serveIndex('./uploads', 
+app.use('/uploads', express.static(config.uploadRoot), 
+        serveIndex(config.uploadRoot, 
         {'icons': true, view: 'details'}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  var err = new Error('Page Not Found');
   err.status = 404;
   next(err);
 });
@@ -48,8 +54,9 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
+  
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', {path : req.url});
 });
 
 module.exports = app;
