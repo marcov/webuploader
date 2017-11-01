@@ -25,20 +25,23 @@ block content
   div(style="height: 3em;")
             
   div(class="pure-g pure-u-1-1")
-    h3()="Upload folder content"
-    
-    form(class="pure-form", method="post" action="/deleteDir")
-      table(class="pure-table pure-table-bordered")
-        thead
-          tr
-            th="Directory"
-            th="Delete"
-
-        tbody
-        each item in dirList 
+    h3()="Delete folders"
+   
+    if dirList.length == 0
+      p()="Upload folder is empty"
+    else 
+      form(class="pure-form", method="post" action="/deleteDir")
+        table(class="pure-table pure-table-bordered")
+          thead
             tr
-              td=item
-              td
-                input(name="folderName", value=item, type="checkbox")
+              th="Directory"
+              th="Delete"
 
-      input(class="pure-button pure-button-primary" type="submit" value="Delete It")
+          tbody
+          each item in dirList 
+              tr
+                td=item
+                td
+                  input(name="folderName", value=item, type="checkbox")
+
+        input(class="pure-button pure-button-primary" type="submit" value="Delete It")

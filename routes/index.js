@@ -84,29 +84,29 @@ router.post('/uploadFiles', (req, res, next) => {
 router.post('/deleteDir', (req, res, next) => { 
   
   var foldersList = [];
+  var htmlReport = [];
   
   foldersList = foldersList.concat(req.body.folderName);
  
   console.log(foldersList);
   
-  if (foldersList === undefined ||
-      foldersList.length === 0) {
-      res.send("No folders selected for deletion");
-  } else {
+  if (foldersList !== undefined &&
+      foldersList.length > 0) {
     foldersList.forEach( (d, i, l) => {
-      res.write("<html><head></head><body>");
-      res.write("Removing dir " + d + "...");
+      var info = {};
+      
+      info.folder = d;
+      
       try {
         fs.removeSync(config.uploadRoot + "/" + d); 
-        res.write("OK<br>");
+        info.error = undefined;
       } catch (e) {
-        res.write(e + "<br>");
+        info.error = e;
       }
+      htmlReport.push(info);
     });
   
-    res.write("<a href='/'>Go back</a>")
-    res.write("</body></html>");
-    res.end();
+    res.render("deleted", {info : htmlReport});
   }
 });
 

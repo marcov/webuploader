@@ -1,0 +1,20 @@
+extends layout
+
+block content
+
+  div(class="pure-g  pure-u-1")
+    h3()="Delete completed"
+    br
+    if info.length == 0
+      p()="No folders delete (did you select any folder?)"
+    else
+      each item in info
+        if item.error === undefined
+          p() Folder #{item.folder}...OK!
+        else 
+          p() Folder #{item.folder}...Failed! Reason:
+          pre()=item.error
+
+    div(class="pure-g pure-u-1" style="margin-top: 1em")
+    a(href="/")="Go back"
+
