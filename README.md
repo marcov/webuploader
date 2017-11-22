@@ -15,6 +15,8 @@ Hence I figured out I could just code a web server that handles file uploads and
 - `npm install`
 
 ## Usage
-Run the application with: `node ./bin/www`.
+Run the application with: `node ./bin/www` to listen on port 3000 or `PORT=1234 node ./bin/www` for a custom port.
 
 Alternatively, use nodemon to write code and automatically have it ready to test it: `DEBUG=webuploader:* nodemon`
+
+For local use fire up a browser and go to http://localhost:3000.
