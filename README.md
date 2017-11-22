@@ -15,8 +15,12 @@ Hence I figured out I could just code a web server that handles file uploads and
 - `npm install`
 
 ## Usage
-Run the application with: `node ./bin/www` to listen on port 3000 or `PORT=1234 node ./bin/www` for a custom port.
-
-Alternatively, use nodemon to write code and automatically have it ready to test it: `DEBUG=webuploader:* nodemon`
+Run the application with: `node ./bin/www`. This will start up a web server listening on port 3000 and storing files inside the "uploads" folder. Environment variables:
+- PORT=1234 to listen on a custom port.
+- UPLOADS_ROOT=my_upload_folder to store/serve files from a custom location.
 
 For local use fire up a browser and go to http://localhost:3000.
+
+## Development
+For development, just use nodemon to automatically have the application restarting whenever you save an edit: `DEBUG=webuploader:* nodemon`
+
