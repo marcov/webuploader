@@ -1,58 +1,60 @@
 extends layout
 
 block content
- 
-  div(class="pure-g")
-    div(class="pure-u-1-3 boxed")
+
+  div()
+    div(class="boxed")
       h1()= title
-  
-  div(class="pure-g")
-    div(class="pure-u-1-3")
-      h3()="Stored files listing"
-      a(href="/uploads"
-        class="pure-button"
-        style="color: white; background: rgb(28, 184, 65);")="Go to files listing"
-  
-    div(class="pure-u-1-3")
-      h3()="Upload one or more files"
-      form(class="pure-form pure-form-stacked" method="post" action="/uploadFiles" enctype="multipart/form-data")
-        fieldset
-          label(for="files")="Choose files"
-          input(id="files" class="pure-button pure-form" name="filesToUpload" type="file" multiple)
-          label(for="folderName")="Folder Name (optional)"
-          input(id="folderName" 
-                type="text"
-                name="destDir"
-                value="")
-          input(class="pure-button pure-button-primary"
-                 type="submit")
-  
-    div(class="pure-u-1-3")
-      h3()="Delete folders"
 
-      if dirList.length == 0
-        p()="Upload folder is empty"
-      else 
-        form(class="pure-form pure-form-stacked", method="post" action="/deleteDir")
+  div()
+    div(class="grid-container")
+      div()
+        h2()="Stored files listing"
+        a(href="/uploads"
+          class="pure-button"
+          style="color: white; background: rgb(28, 184, 65);")="Go to files listing"
+
+      div()
+        h2()="Upload one or more files"
+        form(class="pure-form pure-form-aligned" method="post" action="/uploadFiles" enctype="multipart/form-data")
           fieldset
-            table(class="pure-table pure-table-bordered")
-              thead
-                tr
-                  th="Folder"
-                  th="Selected"
+            div(class="pure-control-group")
+              label(for="files")="Choose files"
+              input(id="files" class="pure-button pure-form" name="filesToUpload" type="file" multiple)
+            div(class="pure-control-group")
+              label(for="folderName")="Folder Name (optional)"
+              input(id="folderName"
+                    type="text"
+                    name="destDir"
+                    value="")
+            input(class="pure-button pure-button-primary"
+                   type="submit")
 
-              tbody
-              each item in dirList 
-                  tr
-                    td=item
-                    td
-                      input(name="folderName", value=item, type="checkbox")
-            br
-            label() Attention: the action cannot be undone!
-            input(class="pure-button" style="background: rgb(202, 60, 60); color: white;" type="submit" value="Delete Selected")
+      div()
+        h2()="Delete folders"
 
-  div(style="height: 5em;")
-  div(class="pure-g")
-    div(class="pure-u-1")
-      div(style="text-align:center;") #{title} by 
-        a(href="https://github.com/marcov") marcov
+        if dirList.length == 0
+          p()="Upload folder is empty"
+        else
+          form(class="pure-form pure-form-stacked", method="post" action="/deleteDir")
+            fieldset
+                div()
+                  table(class="pure-table pure-table-bordered" style="margin: 0 auto;")
+                    thead
+                      tr
+                        th="Folder"
+                        th="Selected"
+
+                    tbody
+                    each item in dirList
+                        tr
+                          td=item
+                          td
+                            input(name="folderName", value=item, type="checkbox")
+                div()
+                  label()
+                    h4() Attention: the action cannot be undone!
+                  input(class="pure-button" style="background: rgb(202, 60, 60); color: white;" type="submit" value="Delete Selected")
+
+      div(id="footerContainer") #{title} by &nbsp;
+          a(href="https://github.com/marcov") marcov

@@ -1,5 +1,6 @@
 body {
-  padding: 50px;
+  padding: 0;
+  margin: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -9,19 +10,40 @@ a {
 
 
 .boxed {
-    background: rgb(250, 250, 250);
     margin: 2em auto;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    border-left: 1px solid #ddd;          
-    border-right: 1px solid #ddd;          
-    font-family: Consolas, 'Liberation Mono', Courier, monospace;
-    text-align: center;                 
+    text-align: center;
 }
 
 
-.newschedule *
-{
-  margin-left: 0.5em;
-  /*height: 2em; */
+.grid-container {
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+}
+
+
+
+.grid-container > div {
+  margin: 0 auto;
+  margin-bottom: 1em;
+  border-radius: 10px;
+  background: #EFF6F9;
+  padding: 2em;
+  min-width: 66vw;
+  text-align: center;
+}
+
+.pure-control-group {
+  text-align: left;
+}
+
+
+#footerContainer {
+  padding: 0.5rem;
+  margin: 0 auto;
+  margin-top: 1em;
+  text-align: center;
+  max-width: 500px;
+  background: none;
 }
