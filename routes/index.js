@@ -14,9 +14,9 @@ function renderHomePage(err, renderData) {
   }
 
   var dirList = fs.readdirSync(config.uploadRoot);
- 
+
   res.render('index',
-             {title : "Node Web Uploader",
+             {title : "Node.js Web Uploader",
               dirList : dirList});
 }
 
@@ -64,48 +64,48 @@ router.post('/uploadFiles', (req, res, next) => {
         status = "Failed (cannot create folder: " + req.body.destDir + ")";
         finalDest = tmpDest;
       }
- 
+
     } else {
       console.log("no destDir set");
       finalDest = tmpDest;
     }
-   
+
     if (status === "") {
       status = "OK";
       folder = finalDest.substr(1);
     }
- 
+
     res.render('uploaded', {status : status, folder : folder})
   });
 });
 
 
 /* POST */
-router.post('/deleteDir', (req, res, next) => { 
-  
+router.post('/deleteDir', (req, res, next) => {
+
   var foldersList = [];
   var htmlReport = [];
-  
+
   foldersList = foldersList.concat(req.body.folderName);
- 
+
   console.log(foldersList);
-  
+
   if (foldersList !== undefined &&
       foldersList.length > 0) {
     foldersList.forEach( (d, i, l) => {
       var info = {};
-      
+
       info.folder = d;
-      
+
       try {
-        fs.removeSync(config.uploadRoot + "/" + d); 
+        fs.removeSync(config.uploadRoot + "/" + d);
         info.error = undefined;
       } catch (e) {
         info.error = e;
       }
       htmlReport.push(info);
     });
-  
+
     res.render("deleted", {info : htmlReport});
   }
 });
